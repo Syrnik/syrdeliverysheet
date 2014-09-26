@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: shop/plugins/syrdeliverysheet\n"
+"POT-Creation-Date: 2014-09-26 04:43+0400\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Serge Rodovnichenko <sergerod@gmail.com>\n"
+"Language-Team: shop/plugins/syrdeliverysheet\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
+"%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:4
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:51
+#: /wa-apps/shop/plugins/syrdeliverysheet/lib/config/plugin.php:3
+msgid "Delivery Sheet"
+msgstr "Заказ-наряд"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:47
+msgid "Print"
+msgstr "Печать"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:52
+msgid "Order"
+msgstr "Заказ"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:58
+msgid "Customer Name"
+msgstr "Ф.И.О."
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:71
+msgid "Shipping Address"
+msgstr "Адрес доставки"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:84
+msgid "Phone"
+msgstr "Телефон"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:93
+msgid "Ordered items"
+msgstr "Состав заказа"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:97
+msgid "#"
+msgstr "№"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:98
+msgid "Name"
+msgstr "Наименование"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:99
+msgid "Price"
+msgstr "Цена"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:100
+msgid "Qty"
+msgstr "Кол-во"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:101
+msgid "Amount"
+msgstr "Сумма"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:142
+msgid "Order comment"
+msgstr "Примечание к заказу"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:146
+msgid "Delivery comment"
+msgstr "Примечание по доставке"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:154
+msgid "Dispatch Time"
+msgstr "Время отправки"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:162
+msgid "Delivery Date"
+msgstr "Дата доставки"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:166
+msgid "Delivery Time"
+msgstr "Время доставки"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:170
+msgid "Signature of recipient"
+msgstr "Подпись получателя"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:117
+msgid "Subtotal"
+msgstr "Всего"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:122
+msgid "Discount"
+msgstr "Скидка"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:128
+msgid "Delivery"
+msgstr "Доставка"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/templates/actions/printform/DeliverySheet.html:133
+msgid "Total"
+msgstr "Итого"
+
+#: /wa-apps/shop/plugins/syrdeliverysheet/lib/shopSyrdeliverysheetPlugin.class.php:39
+#: /wa-apps/shop/plugins/syrdeliverysheet/lib/shopSyrdeliverysheetPlugin.class.php:50
+msgid "Template file not found."
+msgstr ""
