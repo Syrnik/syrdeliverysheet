@@ -1,9 +1,10 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @package Syrdeliverysheet
+ * @author Serge Rodovnichenko <sergerod@gmail.com>
+ * @version 1.0.0
+ * @copyright (c) 2014, Serge Rodovnichenko
+ * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 
 /**
@@ -16,10 +17,10 @@ class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
     public function execute()
     {
         $order_id = waRequest::request('order_id', null, waRequest::TYPE_INT);
-        $order = shopPayment::getOrderData($order_id, $this);        
+        $order = shopPayment::getOrderData($order_id, $this);
         $items = $order ? $this->getOrderedItems($order) : array();
         $settings = waSystem::getInstance()->getPlugin(shopSyrdeliverysheetPlugin::PLUGIN_ID)->getSettings();
-        
+
         if(!$order){
             if((waSystem::getInstance()->getEnv() == "backend") && !$order_id) {
                 $order = waOrder::factory(array(
@@ -31,14 +32,14 @@ class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
                 throw new waException("Order not Found", 404);
             }
         }
-        
+
         $this->setTemplate(waSystem::getInstance()->getPlugin(shopSyrdeliverysheetPlugin::PLUGIN_ID)->getTemplatePath());
-        
+        $this->getResponse()->addJs('plugins/syrdeliverysheet/js/printform.js', 'shop');
         $this->view->assign(compact("order", "items", "settings"));
     }
-    
+
     /**
-     * 
+     *
      * @param waOrder $order
      * @return array
      */
@@ -47,7 +48,7 @@ class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
         if(!$order->items) {
             return array();
         }
-        
+
         $items = $order->items;
         $product_model = new shopProductModel();
         $tax = 0;

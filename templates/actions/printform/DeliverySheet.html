@@ -11,6 +11,8 @@
                 .text-right{text-align:right}
                 .text-center{text-align:center}
                 .text-left{text-align:left}
+                .printable{display:none}
+                .nowrap{white-space:nowrap}
                 #header p{margin:0;text-align:right}
                 #customer,#order-items,#order-footer{margin-top:4mm}
                 #customer table,#order-footer table{margin-bottom:4mm;border-spacing:0 2mm}
@@ -46,12 +48,12 @@
     <body>
         <div id="header">
             <div id="no-print">
-                <button type="button" onclick="window.print();return true;">{_wp("Print")}</button>
+                <button id="print_button" type="button" onclick="window.print();return true;">{_wp("Print")}</button>
             </div>
-            <p>{$wa->shop->settings('name')}</p>
-            <p>{$wa->shop->settings('phone')}</p>
+            <p class="inline_edit">{$wa->shop->settings('name')}</p>
+            <p class="inline_edit">{$wa->shop->settings('phone')}</p>
             <h1>{*_wp("Delivery Sheet")*}Лист доставки товара</h1>
-            <h2>{_wp("Order")} {$order->id_str}</h2>
+            <h2 class="inline_edit">{_wp("Order")} {$order->id_str}</h2>
         </div>
         <div id="customer">
             <table>
@@ -59,34 +61,34 @@
                     <td class="field">
                         {_wp("Customer Name")}
                     </td>
-                    <td class="value">
+                    <td class="value inline_edit">
                         {if !empty($order->shipping_address.name)}
                             {$name = $order->shipping_address.name}
                         {else}
                             {$name = $order->contact_name}
                         {/if}
-                        {if !empty($name)}<span class="name">{$name|escape}</span>{/if}
+                        {$name}
                     </td>
                 </tr>
                 <tr>
                     <td class="field">
                         {_wp("Shipping Address")}
                     </td>
-                    <td class="value">
+                    <td class="value inline_edit">
                         {if !empty($order.shipping_address.address)}
                             {$address = $order.shipping_address.address}
                         {else}
                             {$address = $order.contact_address}
                         {/if}
-                        {if !empty($address)}<span class="address">{$order.shipping_address.address|escape}</span>{/if}
+                        {$address}
                     </td>
                 </tr>
                 <tr>
                     <td class="field">
                         {_wp("Phone")}
                     </td>
-                    <td class="value">
-                        {$phone = $order->getContactField('phone', 'html')}{if !empty($phone)}<span class="phone">{$phone|escape}</span>{/if}
+                    <td class="value inline_edit">
+                        {$order->getContactField('phone', 'html')}
                     </td>
                 </tr>
             </table>
@@ -107,33 +109,33 @@
                     {foreach $order->items as $oi}
                         <tr>
                             <td class="text-center">{$oi@index+1}</td>
-                            <td class="name">{$oi.name|default:"&nbsp;"}{if $oi.sku} ({$oi.sku}){/if}</td>
-                            <td class="price">{shop_currency($oi.price, $order.currency)}</td>
+                            <td class="name inline_edit">{$oi.name|default:"&nbsp;"}{if $oi.sku} ({$oi.sku}){/if}</td>
+                            <td class="price nowrap">{shop_currency($oi.price, $order.currency)}</td>
                             <td class="quantity">{$oi.quantity|string_format:"%d"}</td>
-                            <td class="amount">{shop_currency($oi.total, $order.currency)}</td>
+                            <td class="amount nowrap">{shop_currency($oi.total, $order.currency)}</td>
                         </tr>
                     {/foreach}
                 </tbody>
                 <tbody id="totals">
                     <tr id="subtotal-row">
                         <td colspan="4" class="field">{_wp('Subtotal')}</td>
-                        <td class="amount">{shop_currency($order.subtotal, $order.currency)}</td>
+                        <td class="amount nowrap">{shop_currency($order.subtotal, $order.currency)}</td>
                     </tr>
                     {if $order.discount > 0}
                         <tr id-discount-row>
                             <td colspan="4" class="field">{_wp('Discount')}</td>
-                            <td class="amount">&minus;{shop_currency($order.discount, $order.currency)}</td>
+                            <td class="amount nowrap">&minus;{shop_currency($order.discount, $order.currency)}</td>
                         </tr>
                     {/if}
                     {if $order.shipping > 0}
                         <tr>
-                            <td colspan="4">{_wp('Delivery')} {$order.shipping_name|escape}</td>
-                            <td class="amount">{shop_currency($order.shipping, $order.currency)}</td>
+                            <td colspan="4" class="field inline_edit">{_wp('Delivery')} {$order.shipping_name|escape}</td>
+                            <td class="amount nowrap">{shop_currency($order.shipping, $order.currency)}</td>
                         </tr>
                     {/if}
                     <tr id="total">
                         <td colspan="4" class="field">{_wp('Total')}</td>
-                        <td class="amount">{shop_currency($order.total, $order.currency)}</td>
+                        <td class="amount nowrap">{shop_currency($order.total, $order.currency)}</td>
                     </tr>
                 </tbody>
             </table>
@@ -142,11 +144,11 @@
             <table>
                 <tr>
                     <td class="field">{_wp("Order comment")}</td>
-                    <td class="value">{$order->comment}</td>
+                    <td class="value inline_edit">{$order->comment}</td>
                 </tr>
                 <tr>
                     <td class="field">{_wp("Delivery comment")}</td>
-                    <td class="value"></td>
+                    <td class="value inline_edit"></td>
                 </tr>
             </table>
             <div id="some-attrs">
@@ -176,5 +178,9 @@
                 </div>
             </div>
         </div>
+        {$wa->js()}
+        <script type="text/javascript">
+            Printform.init('inline_edit');
+        </script>
     </body>
 </html>
