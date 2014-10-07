@@ -67,7 +67,7 @@
                         {else}
                             {$name = $order->contact_name}
                         {/if}
-                        {$name}
+                        {$name|escape}
                     </td>
                 </tr>
                 <tr>
@@ -80,7 +80,7 @@
                         {else}
                             {$address = $order.contact_address}
                         {/if}
-                        {$address}
+                        {$address|escape}
                     </td>
                 </tr>
                 <tr>
@@ -144,7 +144,7 @@
             <table>
                 <tr>
                     <td class="field">{_wp("Order comment")}</td>
-                    <td class="value inline_edit">{$order->comment}</td>
+                    <td class="value inline_edit">{$order->comment|escape}</td>
                 </tr>
                 <tr>
                     <td class="field">{_wp("Delivery comment")}</td>
