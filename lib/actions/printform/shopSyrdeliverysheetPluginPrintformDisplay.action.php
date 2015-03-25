@@ -2,7 +2,7 @@
 /**
  * @package Syrdeliverysheet
  * @author Serge Rodovnichenko <sergerod@gmail.com>
- * @version 1.0.0
+ * @version 1.0.1
  * @copyright (c) 2014, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
@@ -17,7 +17,7 @@ class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
     public function execute()
     {
         $order_id = waRequest::request('order_id', null, waRequest::TYPE_INT);
-        $order = shopPayment::getOrderData($order_id, $this);
+        $order = shopPayment::getOrderData($order_id);
         $items = $order ? $this->getOrderedItems($order) : array();
         $settings = waSystem::getInstance()->getPlugin(shopSyrdeliverysheetPlugin::PLUGIN_ID)->getSettings();
 
