@@ -106,7 +106,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {foreach $order->items as $oi}
+                {foreach $items as $oi}
                         <tr>
                             <td class="text-center">{$oi@index+1}</td>
                             <td class="name inline_edit">{$oi.name|default:"&nbsp;"}{if $oi.sku} ({$oi.sku}){/if}</td>
@@ -122,7 +122,7 @@
                         <td class="amount nowrap">{shop_currency($order.subtotal, $order.currency)}</td>
                     </tr>
                     {if $order.discount > 0}
-                        <tr id-discount-row>
+                        <tr id="discount-row">
                             <td colspan="4" class="field">{_wp('Discount')}</td>
                             <td class="amount nowrap">&minus;{shop_currency($order.discount, $order.currency)}</td>
                         </tr>

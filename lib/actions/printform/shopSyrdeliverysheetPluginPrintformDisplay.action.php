@@ -2,7 +2,7 @@
 /**
  * @package Syrdeliverysheet
  * @author Serge Rodovnichenko <sergerod@gmail.com>
- * @version 1.0.1
+ * @version 1.1.0
  * @copyright (c) 2014, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
@@ -49,10 +49,20 @@ class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
             return array();
         }
 
+        $OrderItem = new shopOrderItemsModel();
+
         $items = $order->items;
+
+        $ordered_items = $OrderItem->select('*')
+            ->where('order_id=:order_id AND type=:type', array('order_id' => $order->id, 'type' => 'product'))
+            ->fetchAll('id', TRUE);
+
         $product_model = new shopProductModel();
-        $tax = 0;
-        foreach ($items as & $item) {
+
+        foreach ($items as &$item) {
+            if ($item['type'] == 'product' && isset($ordered_items[$item['id']])) {
+                $item['sku_id'] = $ordered_items[$item['id']]['sku_id'];
+            }
             $data = $product_model->getById($item['product_id']);
             $item['tax_id'] = ifset($data['tax_id']);
             $item['currency'] = $order->currency;
