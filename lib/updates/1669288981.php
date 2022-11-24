@@ -17,3 +17,5 @@ if (file_exists($source)) {
 }
 
 waFiles::delete($this->path . '/templates/actions/printform/DeliverySheet.html');
+waFiles::delete($this->path . '/README.md');
+waFiles::delete($this->path . '/contributors.txt');
