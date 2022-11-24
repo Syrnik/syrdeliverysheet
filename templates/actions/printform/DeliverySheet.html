@@ -13,49 +13,50 @@
                 .text-left{text-align:left}
                 .printable{display:none}
                 .nowrap{white-space:nowrap}
-                #header p{margin:0;text-align:right}
-                #customer,#order-items,#order-footer{margin-top:4mm}
-                #customer table,#order-footer table{margin-bottom:4mm;border-spacing:0 2mm}
-                #customer table,#order-items table,#order-footer table{width:100%}
-                #customer table .field,#order-footer .field{white-space:nowrap;padding-right:4mm}
-                #customer table .value,#order-footer .value{border-bottom:0.3mm solid black;width:90%}
-                #order-items>p{margin-bottom:1mm}
-                #order-items table,#order-items table tr,#order-items td,#order-items th{border:0.3mm solid black;border-collapse:collapse}
-                #order-items td{padding:1mm 3mm}
-                #order-items th{text-align:center;padding:1mm 3mm}
-                #order-items .price,#order-items .amount{text-align:right;white-space:nowrap}
-                #order-items .name{width:80%}
-                #order-items .quantity{text-align:center}
-                #totals td{border-left-color:white;border-bottom-color:white;border-right-color:white}
-                #total{font-size:4.7mm;font-weight:bold}
-                #total .field{font-variant:small-caps;border-top:0.75mm solid black}
-                #total .amount{border:0.75mm solid black}
-                #some-attrs{width:100%;display:table}
-                #dispatch-attrs,#delivery-attrs{display:table-cell;width:49%}
-                #dispatch-attrs{padding-right:1em}
+                .s-syrdeliverysheet-header p{margin:0;text-align:right}
+                .s-syrdeliverysheet-customer,.s-syrdeliverysheet-order-items,.s-syrdeliverysheet-order-footer{margin-top:4mm}
+                .s-syrdeliverysheet-customer table,.s-syrdeliverysheet-order-footer table{margin-bottom:4mm;border-spacing:0 2mm}
+                .s-syrdeliverysheet-customer table,.s-syrdeliverysheet-order-items table,.s-syrdeliverysheet-order-footer table{width:100%}
+                .s-syrdeliverysheet-customer table .field,.s-syrdeliverysheet-order-footer .field{white-space:nowrap;padding-right:4mm}
+                .s-syrdeliverysheet-customer table .value,.s-syrdeliverysheet-order-footer .value{border-bottom:0.3mm solid black;width:90%}
+                .s-syrdeliverysheet-order-items>p{margin-bottom:1mm}
+                .s-syrdeliverysheet-order-items table,.s-syrdeliverysheet-order-items table tr,.s-syrdeliverysheet-order-items td,.s-syrdeliverysheet-order-items th{border:0.3mm solid black;border-collapse:collapse}
+                .s-syrdeliverysheet-order-items td{padding:1mm 3mm}
+                .s-syrdeliverysheet-order-items th{text-align:center;padding:1mm 3mm}
+                .s-syrdeliverysheet-order-items .price,.s-syrdeliverysheet-order-items .amount{text-align:right;white-space:nowrap}
+                .s-syrdeliverysheet-order-items .name{width:80%}
+                .s-syrdeliverysheet-order-items .quantity{text-align:center}
+                .s-syrdeliverysheet-totals td{border-left-color:white;border-bottom-color:white;border-right-color:white}
+                .s-syrdeliverysheet-total{font-size:4.7mm;font-weight:bold}
+                .s-syrdeliverysheet-total .field{font-variant:small-caps;border-top:0.75mm solid black}
+                .s-syrdeliverysheet-total .amount{border:0.75mm solid black}
+                .s-syrdeliverysheet-some-attrs{width:100%;display:table}
+                .s-syrdeliverysheet-dispatch-attrs,.s-syrdeliverysheet-delivery-attrs{display:table-cell;width:49%}
+                .s-syrdeliverysheet-dispatch-attrs{padding-right:1em}
                 @media screen{
                     body{max-width:960px;margin:0 auto;box-shadow:0 0 10px rgba(0,0,0,0.5);padding:8px}
-                    #no-print{position:fixed;top:0;padding:1em;font-size:12px}
+                    .s-syrdeliverysheet-no-print{position:fixed;top:0;padding:1em;font-size:12px}
                 }
                 @media print{
-                    #no-print{display:none}
+                    .s-syrdeliverysheet-no-print{display:none}
                     @page{margin:1cm}
-                    #customer,#order-footer{page-break-inside:avoid}
+                    .s-syrdeliverysheet-customer,.s-syrdeliverysheet-order-footer{page-break-inside:avoid}
                 }
             {/literal}
         </style>
     </head>
     <body>
-        <div id="header">
-            <div id="no-print">
-                <button id="print_button" type="button" onclick="window.print();return true;">{_wp("Print")}</button>
+        <div class="s-syrdeliverysheet-printform">
+        <div class="s-syrdeliverysheet-header">
+            <div class="s-syrdeliverysheet-no-print">
+                <button class="s-syrdeliverysheet-print_button" type="button" onclick="window.print();return true;">{_wp("Print")}</button>
             </div>
             <p class="inline_edit">{$wa->shop->settings('name')}</p>
             <p class="inline_edit">{$wa->shop->settings('phone')}</p>
-            <h1>{*_wp("Delivery Sheet")*}Лист доставки товара</h1>
+            <h1>Лист доставки товара</h1>
             <h2 class="inline_edit">{_wp("Order")} {$order->id_str}</h2>
         </div>
-        <div id="customer">
+        <div class="s-syrdeliverysheet-customer">
             <table>
                 <tr>
                     <td class="field">
@@ -93,7 +94,7 @@
                 </tr>
             </table>
         </div>
-        <div id="order-items">
+        <div class="s-syrdeliverysheet-order-items">
             <p>{_wp("Ordered items")}</p>
             <table>
                 <thead>
@@ -116,13 +117,13 @@
                         </tr>
                     {/foreach}
                 </tbody>
-                <tbody id="totals">
-                    <tr id="subtotal-row">
+                <tbody class="s-syrdeliverysheet-totals">
+                    <tr class="s-syrdeliverysheet-subtotal-row">
                         <td colspan="4" class="field">{_wp('Subtotal')}</td>
                         <td class="amount nowrap">{shop_currency($order.subtotal, $order.currency)}</td>
                     </tr>
                     {if $order.discount > 0}
-                        <tr id="discount-row">
+                        <tr class="s-syrdeliverysheet-discount-row">
                             <td colspan="4" class="field">{_wp('Discount')}</td>
                             <td class="amount nowrap">&minus;{shop_currency($order.discount, $order.currency)}</td>
                         </tr>
@@ -133,14 +134,14 @@
                             <td class="amount nowrap">{shop_currency($order.shipping, $order.currency)}</td>
                         </tr>
                     {/if}
-                    <tr id="total">
+                    <tr class="s-syrdeliverysheet-total">
                         <td colspan="4" class="field">{_wp('Total')}</td>
                         <td class="amount nowrap">{shop_currency($order.total, $order.currency)}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div id="order-footer">
+        <div class="s-syrdeliverysheet-order-footer">
             <table>
                 <tr>
                     <td class="field">{_wp("Order comment")}</td>
@@ -151,8 +152,8 @@
                     <td class="value inline_edit"></td>
                 </tr>
             </table>
-            <div id="some-attrs">
-                <div id="dispatch-attrs">
+            <div class="s-syrdeliverysheet-some-attrs">
+                <div class="s-syrdeliverysheet-dispatch-attrs">
                     <table>
                         <tr>
                             <td class="field">{_wp("Dispatch Time")}</td>
@@ -160,7 +161,7 @@
                         </tr>
                     </table>
                 </div>
-                <div id="delivery-attrs">
+                <div class="s-syrdeliverysheet-delivery-attrs">
                     <table>
                         <tr>
                             <td class="field">{_wp("Delivery Date")}</td>
@@ -177,6 +178,7 @@
                     </table>
                 </div>
             </div>
+        </div>
         </div>
         {$wa->js()}
         <script type="text/javascript">

@@ -7,6 +7,6 @@
 
 return [
     'php'           => ['version' => '7.4', 'strict' => true],
-    'app.shop'      => ['version' => '>=6.3', 'strict' => true],
+    'app.shop'      => ['version' => '>=7.2', 'strict' => true],
     'app.installer' => ['version' => '>=2.0', 'strict' => true]
 ];

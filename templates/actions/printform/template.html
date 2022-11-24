@@ -1,0 +1,137 @@
+<style>
+{include file="./css/printform.css" inline}
+</style>
+<div class="s-syrdeliverysheet-printform">
+    <div class="s-syrdeliverysheet-header">
+        <div class="s-syrdeliverysheet-no-print">
+            <button class="s-syrdeliverysheet-print_button" type="button" onclick="window.print();return true;">{_wp("Print")}</button>
+        </div>
+        <p class="inline_edit">{$wa->shop->settings('name')}</p>
+        <p class="inline_edit">{$wa->shop->settings('phone')}</p>
+        <h1>Лист доставки товара</h1>
+        <h2 class="inline_edit">{_wp("Order")} {$order->id_str}</h2>
+    </div>
+    <div class="s-syrdeliverysheet-customer">
+        <table>
+            <tr>
+                <td class="field">
+                    {_wp("Customer Name")}
+                </td>
+                <td class="value inline_edit">
+                    {if !empty($order->shipping_address.name)}
+                        {$name = $order->shipping_address.name}
+                    {else}
+                        {$name = $order->contact_name}
+                    {/if}
+                    {$name|escape}
+                </td>
+            </tr>
+            <tr>
+                <td class="field">
+                    {_wp("Shipping Address")}
+                </td>
+                <td class="value inline_edit">
+                    {if !empty($order.shipping_address.address)}
+                        {$address = $order.shipping_address.address}
+                    {else}
+                        {$address = $order.contact_address}
+                    {/if}
+                    {$address|escape}
+                </td>
+            </tr>
+            <tr>
+                <td class="field">
+                    {_wp("Phone")}
+                </td>
+                <td class="value inline_edit">
+                    {$order->getContactField('phone', 'html')}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="s-syrdeliverysheet-order-items">
+        <p>{_wp("Ordered items")}</p>
+        <table>
+            <thead>
+            <tr>
+                <th>{_wp("#")}</th>
+                <th>{_wp("Name")}</th>
+                <th>{_wp("Price")}</th>
+                <th>{_wp("Qty")}</th>
+                <th>{_wp("Amount")}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $items as $oi}
+                <tr>
+                    <td class="text-center">{$oi@index+1}</td>
+                    <td class="name inline_edit">{$oi.name|default:"&nbsp;"}{if $oi.sku} ({$oi.sku}){/if}</td>
+                    <td class="price nowrap">{shop_currency($oi.price, $order.currency)}</td>
+                    <td class="quantity">{$oi.quantity|string_format:"%d"}</td>
+                    <td class="amount nowrap">{shop_currency($oi.total, $order.currency)}</td>
+                </tr>
+            {/foreach}
+            </tbody>
+            <tbody class="s-syrdeliverysheet-totals">
+            <tr class="s-syrdeliverysheet-subtotal-row">
+                <td colspan="4" class="field">{_wp('Subtotal')}</td>
+                <td class="amount nowrap">{shop_currency($order.subtotal, $order.currency)}</td>
+            </tr>
+            {if $order.discount > 0}
+                <tr class="s-syrdeliverysheet-discount-row">
+                    <td colspan="4" class="field">{_wp('Discount')}</td>
+                    <td class="amount nowrap">&minus;{shop_currency($order.discount, $order.currency)}</td>
+                </tr>
+            {/if}
+            {if $order.shipping > 0}
+                <tr>
+                    <td colspan="4" class="field inline_edit">{_wp('Delivery')} {$order.shipping_name|escape}</td>
+                    <td class="amount nowrap">{shop_currency($order.shipping, $order.currency)}</td>
+                </tr>
+            {/if}
+            <tr class="s-syrdeliverysheet-total">
+                <td colspan="4" class="field">{_wp('Total')}</td>
+                <td class="amount nowrap">{shop_currency($order.total, $order.currency)}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="s-syrdeliverysheet-order-footer">
+        <table>
+            <tr>
+                <td class="field">{_wp("Order comment")}</td>
+                <td class="value inline_edit">{$order->comment|escape}</td>
+            </tr>
+            <tr>
+                <td class="field">{_wp("Delivery comment")}</td>
+                <td class="value inline_edit"></td>
+            </tr>
+        </table>
+        <div class="s-syrdeliverysheet-some-attrs">
+            <div class="s-syrdeliverysheet-dispatch-attrs">
+                <table>
+                    <tr>
+                        <td class="field">{_wp("Dispatch Time")}</td>
+                        <td class="value"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="s-syrdeliverysheet-delivery-attrs">
+                <table>
+                    <tr>
+                        <td class="field">{_wp("Delivery Date")}</td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr>
+                        <td class="field">{_wp("Delivery Time")}</td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr>
+                        <td class="field">{_wp("Signature of recipient")}</td>
+                        <td class="value"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

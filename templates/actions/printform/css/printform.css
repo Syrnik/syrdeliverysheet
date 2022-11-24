@@ -1,0 +1,162 @@
+.s-syrdeliverysheet-printform {
+    font-family: "Liberation Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 4.2mm
+}
+
+.s-syrdeliverysheet-printform h1, .s-syrdeliverysheet-printform h2 {
+    margin: 0;
+    line-height: 120%;
+    text-align: center
+}
+
+.s-syrdeliverysheet-printform h1 {
+    font-size: 5.7mm;
+    font-variant: small-caps
+}
+
+.s-syrdeliverysheet-printform h2 {
+    font-size: 5.3mm;
+}
+
+.s-syrdeliverysheet-printform .text-right {
+    text-align: right
+}
+
+.s-syrdeliverysheet-printform .text-center {
+    text-align: center
+}
+
+.s-syrdeliverysheet-printform .text-left {
+    text-align: left
+}
+
+.s-syrdeliverysheet-printform .printable {
+    display: none
+}
+
+.s-syrdeliverysheet-printform .nowrap {
+    white-space: nowrap
+}
+
+.s-syrdeliverysheet-header p {
+    margin: 0;
+    text-align: right
+}
+
+.s-syrdeliverysheet-customer, .s-syrdeliverysheet-order-items, .s-syrdeliverysheet-order-footer {
+    margin-top: 4mm
+}
+
+.s-syrdeliverysheet-customer table, .s-syrdeliverysheet-order-footer table {
+    margin-bottom: 4mm;
+    border-spacing: 0 2mm
+}
+
+.s-syrdeliverysheet-customer table, .s-syrdeliverysheet-order-items table, .s-syrdeliverysheet-order-footer table {
+    width: 100%
+}
+
+.s-syrdeliverysheet-customer table .field, .s-syrdeliverysheet-order-footer .field {
+    white-space: nowrap;
+    padding-right: 4mm
+}
+
+.s-syrdeliverysheet-customer table .value, .s-syrdeliverysheet-order-footer .value {
+    border-bottom: 0.3mm solid black;
+    width: 90%
+}
+
+.s-syrdeliverysheet-order-items > p {
+    margin-bottom: 1mm
+}
+
+.s-syrdeliverysheet-order-items table, .s-syrdeliverysheet-order-items table tr, .s-syrdeliverysheet-order-items td, .s-syrdeliverysheet-order-items th {
+    border: 0.3mm solid black;
+    border-collapse: collapse
+}
+
+.s-syrdeliverysheet-order-items td {
+    padding: 1mm 3mm
+}
+
+.s-syrdeliverysheet-order-items th {
+    text-align: center;
+    padding: 1mm 3mm
+}
+
+.s-syrdeliverysheet-order-items .price, .s-syrdeliverysheet-order-items .amount {
+    text-align: right;
+    white-space: nowrap
+}
+
+.s-syrdeliverysheet-order-items .name {
+    width: 80%
+}
+
+.s-syrdeliverysheet-order-items .quantity {
+    text-align: center
+}
+
+.s-syrdeliverysheet-totals td {
+    border-left-color: white;
+    border-bottom-color: white;
+    border-right-color: white
+}
+
+.s-syrdeliverysheet-total {
+    font-size: 4.7mm;
+    font-weight: bold
+}
+
+.s-syrdeliverysheet-total .field {
+    font-variant: small-caps;
+    border-top: 0.75mm solid black
+}
+
+.s-syrdeliverysheet-total .amount {
+    border: 0.75mm solid black
+}
+
+.s-syrdeliverysheet-some-attrs {
+    width: 100%;
+    display: table
+}
+
+.s-syrdeliverysheet-dispatch-attrs, .s-syrdeliverysheet-delivery-attrs {
+    display: table-cell;
+    width: 49%
+}
+
+.s-syrdeliverysheet-dispatch-attrs {
+    padding-right: 1em
+}
+
+@media screen {
+    .s-syrdeliverysheet-printform {
+        max-width: 960px;
+        margin: 0 auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        padding: 8px
+    }
+    
+    .s-syrdeliverysheet-no-print {
+        position: fixed;
+        top: 0;
+        padding: 1em;
+        font-size: 12px
+    }
+}
+
+@media print {
+    .s-syrdeliverysheet-no-print {
+        display: none
+    }
+
+    @page {
+        margin: 1cm
+    }
+
+    .s-syrdeliverysheet-customer, .s-syrdeliverysheet-order-footer {
+        page-break-inside: avoid
+    }
+}
