@@ -62,13 +62,13 @@
             </tr>
             </thead>
             <tbody>
-            {foreach $items as $oi}
+            {foreach $order.items as $id=>$item}
                 <tr>
-                    <td class="text-center">{$oi@index+1}</td>
-                    <td class="name inline_edit">{$oi.name|default:"&nbsp;"}{if $oi.sku} ({$oi.sku}){/if}</td>
-                    <td class="price nowrap">{shop_currency($oi.price, $order.currency)}</td>
-                    <td class="quantity">{$oi.quantity|string_format:"%d"}</td>
-                    <td class="amount nowrap">{shop_currency($oi.total, $order.currency)}</td>
+                    <td class="text-center">{$item@index+1}</td>
+                    <td class="name inline_edit">{$item.name|default:"&nbsp;"}{if $item.sku} ({$item.sku}){/if}</td>
+                    <td class="price nowrap">{shop_currency($item.price, $order.currency)}</td>
+                    <td class="quantity nowrap">{$item.quantity|string_format:"%d"} {$item.stock_unit|default:'шт'|escape}</td>
+                    <td class="amount nowrap">{shop_currency($item.total, $order.currency)}</td>
                 </tr>
             {/foreach}
             </tbody>
@@ -112,7 +112,7 @@
                 <table>
                     <tr>
                         <td class="field">{_wp("Dispatch Time")}</td>
-                        <td class="value"></td>
+                        <td class="value inline_edit"></td>
                     </tr>
                 </table>
             </div>
@@ -120,11 +120,24 @@
                 <table>
                     <tr>
                         <td class="field">{_wp("Delivery Date")}</td>
-                        <td class="value"></td>
+                        <td class="value inline_edit">{strip}
+                            {if $order->params && isset($order->params['shipping_start_datetime']) && $order->params['shipping_start_datetime']}
+                                {$order->params['shipping_start_datetime']|wa_date:'humandate'}
+                            {elseif $order->shipping_params}
+                                {if isset($order->shipping_params['desired_delivery.date']) && $order->shipping_params['desired_delivery.date']}{$order->shipping_params['desired_delivery.date']|wa_date:'humandate'}{/if}
+                            {/if}
+                        {/strip}</td>
                     </tr>
                     <tr>
                         <td class="field">{_wp("Delivery Time")}</td>
-                        <td class="value"></td>
+                        <td class="value inline_edit">{strip}
+                                {if $order->params && isset($order->params['shipping_start_datetime']) && $order->params['shipping_start_datetime']}
+                                    {$order->params['shipping_start_datetime']|wa_date:'H:i'}
+                                    {if isset($order->params['shipping_end_datetime']) && $order->params['shipping_end_datetime']}&nbsp;&#8211;&nbsp;{$order->params['shipping_end_datetime']|wa_date:'H:i'}{/if}
+                                {elseif $order->shipping_params}
+                                    {if isset($order->shipping_params['desired_delivery.interval']) && $order->shipping_params['desired_delivery.interval']}{$order->shipping_params['desired_delivery.interval']}{/if}
+                                {/if}
+                        {/strip}</td>
                     </tr>
                     <tr>
                         <td class="field">{_wp("Signature of recipient")}</td>
