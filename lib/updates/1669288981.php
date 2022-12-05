@@ -19,3 +19,8 @@ if (file_exists($source)) {
 waFiles::delete($this->path . '/templates/actions/printform/DeliverySheet.html');
 waFiles::delete($this->path . '/README.md');
 waFiles::delete($this->path . '/contributors.txt');
+waFiles::delete($this->path . '/img/logo.png');
+waFiles::delete($this->path . '/img/logo.xcf');
+waFiles::delete($this->path . '/img/syrdeliverysheet-screenshot-ru-1.png');
+waFiles::delete($this->path . '/img/syrdeliverysheet-screenshot-ru-2.png');
+waFiles::delete($this->path . '/img/syrdeliverysheet-screenshot-ru-3.png');
