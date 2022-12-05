@@ -14,26 +14,44 @@
  */
 class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
 {
-    public function execute()
+    const PLUGIN_ID = 'syrdeliverysheet';
+
+    /**
+     * @return void
+     * @throws waException
+     * @throws waRightsException
+     */
+    public function execute(): void
     {
+        if (!wa()->getUser()->getRights('shop', 'orders')) {
+            throw new waRightsException('Access denied');
+        }
+
         $order_id = waRequest::request('order_id', null, waRequest::TYPE_INT);
+
+        /** @var shopSyrdeliverysheetPlugin $plugin */
+        $plugin = wa('shop')->getPlugin('syrdeliverysheet');
+
+        $this->view->assign('content', $plugin->renderPrintform($order_id));
+        return;
+
         $order = shopPayment::getOrderData($order_id);
         $items = $order ? $this->getOrderedItems($order) : array();
-        $settings = waSystem::getInstance()->getPlugin(shopSyrdeliverysheetPlugin::PLUGIN_ID)->getSettings();
+        $settings = waSystem::getInstance()->getPlugin(self::PLUGIN_ID)->getSettings();
 
-        if(!$order){
-            if((waSystem::getInstance()->getEnv() == "backend") && !$order_id) {
+        if (!$order) {
+            if ((waSystem::getInstance()->getEnv() == "backend") && !$order_id) {
                 $order = waOrder::factory(array(
                     'contact_id' => $this->getUser()->getId(),
-                    'id' => 1,
-                    'id_str' => shopHelper::encodeOrderId(1)
+                    'id'         => 1,
+                    'id_str'     => shopHelper::encodeOrderId(1)
                 ));
             } else {
                 throw new waException("Order not Found", 404);
             }
         }
 
-        $this->setTemplate(waSystem::getInstance()->getPlugin(shopSyrdeliverysheetPlugin::PLUGIN_ID)->getTemplatePath());
+        $this->setTemplate(waSystem::getInstance()->getPlugin(self::PLUGIN_ID)->getTemplatePath());
         $this->getResponse()->addJs('plugins/syrdeliverysheet/js/printform.js', 'shop');
         $this->view->assign(compact("order", "items", "settings"));
     }
@@ -45,7 +63,7 @@ class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
      */
     private function getOrderedItems($order)
     {
-        if(!$order->items) {
+        if (!$order->items) {
             return array();
         }
 
@@ -55,7 +73,7 @@ class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
 
         $ordered_items = $OrderItem->select('*')
             ->where('order_id=:order_id AND type=:type', array('order_id' => $order->id, 'type' => 'product'))
-            ->fetchAll('id', TRUE);
+            ->fetchAll('id', true);
 
         $product_model = new shopProductModel();
 
@@ -70,9 +88,9 @@ class shopSyrdeliverysheetPluginPrintformDisplayAction extends waViewAction
 
         unset($item);
         shopTaxes::apply($items, array(
-            'billing' => $order->billing_address,
+            'billing'  => $order->billing_address,
             'shipping' => $order->shipping_address,
-                ), $order->currency);
+        ), $order->currency);
 
         if ($order->discount) {
             if ($order->total + $order->discount - $order->shipping > 0) {
