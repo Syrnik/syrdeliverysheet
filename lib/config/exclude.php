@@ -2,6 +2,8 @@
 return array(
     '*/README.md',
     '*/LICENSE.txt',
+    'LICENSE',
+    'LICENSE_ru',
     '*/CHANGELOG.md',
     'CHANGELOG.md',
     '*/CONTRIBUTING.md',
@@ -41,5 +43,7 @@ return array(
     '*/.travis',
     '*/*.dist',
     '*/*.rst',
-    'rector.php'
+    'rector.php',
+    'AGENTS.md',
+    'compress-app-plugin.php'
 );
