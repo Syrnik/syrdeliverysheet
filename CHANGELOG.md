@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [2.0.2] - 2026-07-30
 ### Fixed
  - Добавлен шаблон печатной формы для интерфейса UI 2.0 (`templates/actions/printform/PrintformDisplay.html`) со скриптом инлайн-редактирования полей перед печатью — раньше эта возможность была доступна только в устаревшем интерфейсе (`templates/actions-legacy`)
 
