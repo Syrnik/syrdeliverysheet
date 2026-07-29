@@ -45,5 +45,6 @@ return array(
     '*/*.rst',
     'rector.php',
     'AGENTS.md',
-    'compress-app-plugin.php'
+    'compress-app-plugin.php',
+    '.editorconfig',
 );
